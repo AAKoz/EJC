@@ -3,67 +3,77 @@ import java.util.Random;
 public class PlayingField {
     public int[][] playingField = new int[16][16];
 
-    private void Place4DeckShip(int[][] playingField) {
+    /**
+     * Places one 4-deck ship on playing field in random position and direction.
+     *
+     * @param playingField playing field where ships are placing
+     */
+    private void place4DeckShip(int[][] playingField) {
         Random random = new Random();
-        int xAxisPosition = 0;
-        int yAxisPosition = 0;
+        int axisPositionX = 0;
+        int axisPositionY = 0;
         int directionOfShip = 0;
 
-        xAxisPosition = random.nextInt(10) + 3;
-        yAxisPosition = random.nextInt(10) + 3;
+        axisPositionX = random.nextInt(10) + 3;
+        axisPositionY = random.nextInt(10) + 3;
         directionOfShip = random.nextInt(2);
 
         switch (directionOfShip) {
             case 0:
-                if (xAxisPosition > 6) {
+                if (axisPositionX > 6) {
                     for (int i = 0; i < 4; i++) {
-                        playingField[xAxisPosition - i][yAxisPosition] = 1;
+                        playingField[axisPositionX - i][axisPositionY] = 1;
                     }
                 } else {
                     for (int i = 0; i < 4; i++) {
-                        playingField[xAxisPosition + i][yAxisPosition] = 1;
+                        playingField[axisPositionX + i][axisPositionY] = 1;
                     }
                 }
                 break;
             case 1:
-                if (yAxisPosition > 6) {
+                if (axisPositionY > 6) {
                     for (int i = 0; i < 4; i++) {
-                        playingField[xAxisPosition][yAxisPosition - i] = 1;
+                        playingField[axisPositionX][axisPositionY - i] = 1;
                     }
                 } else {
                     for (int i = 0; i < 4; i++) {
-                        playingField[xAxisPosition][yAxisPosition + i] = 1;
+                        playingField[axisPositionX][axisPositionY + i] = 1;
                     }
                 }
                 break;
         }
     }
 
-    private void Place3DeckShips(int[][] playingField) {
+    /**
+     * Places two 3-deck ships on playing field in random position and direction.
+     *
+     * @param playingField playing field where ships are placing
+     */
+    private void place3DeckShips(int[][] playingField) {
         Random random = new Random();
-        int xAxisPosition = 0;
-        int yAxisPosition = 0;
+        int axisPositionX = 0;
+        int axisPositionY = 0;
         int directionOfShip = 0;
         boolean isFree = false;
 
         for (int k = 0; k < 2; k++) {
-            xAxisPosition = random.nextInt(10) + 3;
-            yAxisPosition = random.nextInt(10) + 3;
+            axisPositionX = random.nextInt(10) + 3;
+            axisPositionY = random.nextInt(10) + 3;
             directionOfShip = random.nextInt(2);
 
-            while (isFree != true) {
-                while (isFree != true) {
-                    if (playingField[xAxisPosition][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition][yAxisPosition + 1] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition + 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition + 1] == 1) {
-                        xAxisPosition = random.nextInt(10) + 3;
-                        yAxisPosition = random.nextInt(10) + 3;
+            while (!isFree) {
+                while (!isFree) {
+                    if (playingField[axisPositionX][axisPositionY] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY] == 1 ||
+                            playingField[axisPositionX][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY] == 1 ||
+                            playingField[axisPositionX][axisPositionY + 1] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY + 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY + 1] == 1) {
+                        axisPositionX = random.nextInt(10) + 3;
+                        axisPositionY = random.nextInt(10) + 3;
                     } else {
                         isFree = true;
                     }
@@ -72,66 +82,66 @@ public class PlayingField {
 
                 switch (directionOfShip) {
                     case 0:
-                        if (xAxisPosition > 5) {
-                            if (playingField[xAxisPosition - 2][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition - 2][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition - 2][yAxisPosition + 1] == 1 ||
-                                    playingField[xAxisPosition - 3][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition - 3][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition - 3][yAxisPosition + 1] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                        if (axisPositionX > 5) {
+                            if (playingField[axisPositionX - 2][axisPositionY] == 1 ||
+                                    playingField[axisPositionX - 2][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX - 2][axisPositionY + 1] == 1 ||
+                                    playingField[axisPositionX - 3][axisPositionY] == 1 ||
+                                    playingField[axisPositionX - 3][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX - 3][axisPositionY + 1] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 3; i++) {
-                                    playingField[xAxisPosition - i][yAxisPosition] = 1;
+                                    playingField[axisPositionX - i][axisPositionY] = 1;
                                 }
                                 isFree = true;
                             }
                         } else {
-                            if (playingField[xAxisPosition + 2][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition + 2][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition + 2][yAxisPosition + 1] == 1 ||
-                                    playingField[xAxisPosition + 3][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition + 3][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition + 3][yAxisPosition + 1] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                            if (playingField[axisPositionX + 2][axisPositionY] == 1 ||
+                                    playingField[axisPositionX + 2][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX + 2][axisPositionY + 1] == 1 ||
+                                    playingField[axisPositionX + 3][axisPositionY] == 1 ||
+                                    playingField[axisPositionX + 3][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX + 3][axisPositionY + 1] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 3; i++) {
-                                    playingField[xAxisPosition + i][yAxisPosition] = 1;
+                                    playingField[axisPositionX + i][axisPositionY] = 1;
                                 }
                                 isFree = true;
                             }
                         }
                         break;
                     case 1:
-                        if (yAxisPosition > 5) {
-                            if (playingField[xAxisPosition][yAxisPosition - 2] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition - 2] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition - 2] == 1 ||
-                                    playingField[xAxisPosition][yAxisPosition - 3] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition - 3] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition - 3] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                        if (axisPositionY > 5) {
+                            if (playingField[axisPositionX][axisPositionY - 2] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY - 2] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY - 2] == 1 ||
+                                    playingField[axisPositionX][axisPositionY - 3] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY - 3] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY - 3] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 3; i++) {
-                                    playingField[xAxisPosition][yAxisPosition - i] = 1;
+                                    playingField[axisPositionX][axisPositionY - i] = 1;
                                 }
                                 isFree = true;
                             }
                         } else {
-                            if (playingField[xAxisPosition][yAxisPosition + 2] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition + 2] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition + 2] == 1 ||
-                                    playingField[xAxisPosition][yAxisPosition + 3] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition + 3] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition + 3] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                            if (playingField[axisPositionX][axisPositionY + 2] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY + 2] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY + 2] == 1 ||
+                                    playingField[axisPositionX][axisPositionY + 3] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY + 3] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY + 3] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 3; i++) {
-                                    playingField[xAxisPosition][yAxisPosition + i] = 1;
+                                    playingField[axisPositionX][axisPositionY + i] = 1;
                                 }
                                 isFree = true;
                             }
@@ -143,31 +153,36 @@ public class PlayingField {
         }
     }
 
-    private void Place2DeckShips(int[][] playingField) {
+    /**
+     * Places three 2-deck ships on playing field in random position and direction.
+     *
+     * @param playingField playing field where ships are placing
+     */
+    private void place2DeckShips(int[][] playingField) {
         Random random = new Random();
-        int xAxisPosition = 0;
-        int yAxisPosition = 0;
+        int axisPositionX = 0;
+        int axisPositionY = 0;
         int directionOfShip = 0;
         boolean isFree = false;
 
         for (int k = 0; k < 3; k++) {
-            xAxisPosition = random.nextInt(10) + 3;
-            yAxisPosition = random.nextInt(10) + 3;
+            axisPositionX = random.nextInt(10) + 3;
+            axisPositionY = random.nextInt(10) + 3;
             directionOfShip = random.nextInt(2);
 
-            while (isFree != true) {
-                while (isFree != true) {
-                    if (playingField[xAxisPosition][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition] == 1 ||
-                            playingField[xAxisPosition][yAxisPosition + 1] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition - 1][yAxisPosition + 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition - 1] == 1 ||
-                            playingField[xAxisPosition + 1][yAxisPosition + 1] == 1) {
-                        xAxisPosition = random.nextInt(10) + 3;
-                        yAxisPosition = random.nextInt(10) + 3;
+            while (!isFree) {
+                while (!isFree) {
+                    if (playingField[axisPositionX][axisPositionY] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY] == 1 ||
+                            playingField[axisPositionX][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY] == 1 ||
+                            playingField[axisPositionX][axisPositionY + 1] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX - 1][axisPositionY + 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY - 1] == 1 ||
+                            playingField[axisPositionX + 1][axisPositionY + 1] == 1) {
+                        axisPositionX = random.nextInt(10) + 3;
+                        axisPositionY = random.nextInt(10) + 3;
                     } else {
                         isFree = true;
                     }
@@ -175,54 +190,54 @@ public class PlayingField {
                 isFree = false;
                 switch (directionOfShip) {
                     case 0:
-                        if (xAxisPosition > 4) {
-                            if (playingField[xAxisPosition - 2][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition - 2][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition - 2][yAxisPosition + 1] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                        if (axisPositionX > 4) {
+                            if (playingField[axisPositionX - 2][axisPositionY] == 1 ||
+                                    playingField[axisPositionX - 2][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX - 2][axisPositionY + 1] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 2; i++) {
-                                    playingField[xAxisPosition - i][yAxisPosition] = 1;
+                                    playingField[axisPositionX - i][axisPositionY] = 1;
                                 }
                                 isFree = true;
                             }
                         } else {
-                            if (playingField[xAxisPosition + 2][yAxisPosition] == 1 ||
-                                    playingField[xAxisPosition + 2][yAxisPosition - 1] == 1 ||
-                                    playingField[xAxisPosition + 2][yAxisPosition + 1] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                            if (playingField[axisPositionX + 2][axisPositionY] == 1 ||
+                                    playingField[axisPositionX + 2][axisPositionY - 1] == 1 ||
+                                    playingField[axisPositionX + 2][axisPositionY + 1] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 2; i++) {
-                                    playingField[xAxisPosition + i][yAxisPosition] = 1;
+                                    playingField[axisPositionX + i][axisPositionY] = 1;
                                 }
                                 isFree = true;
                             }
                         }
                         break;
                     case 1:
-                        if (yAxisPosition > 4) {
-                            if (playingField[xAxisPosition][yAxisPosition - 2] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition - 2] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition - 2] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                        if (axisPositionY > 4) {
+                            if (playingField[axisPositionX][axisPositionY - 2] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY - 2] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY - 2] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 2; i++) {
-                                    playingField[xAxisPosition][yAxisPosition - i] = 1;
+                                    playingField[axisPositionX][axisPositionY - i] = 1;
                                 }
                                 isFree = true;
                             }
                         } else {
-                            if (playingField[xAxisPosition][yAxisPosition + 2] == 1 ||
-                                    playingField[xAxisPosition - 1][yAxisPosition + 2] == 1 ||
-                                    playingField[xAxisPosition + 1][yAxisPosition + 2] == 1) {
-                                xAxisPosition = random.nextInt(10) + 3;
-                                yAxisPosition = random.nextInt(10) + 3;
+                            if (playingField[axisPositionX][axisPositionY + 2] == 1 ||
+                                    playingField[axisPositionX - 1][axisPositionY + 2] == 1 ||
+                                    playingField[axisPositionX + 1][axisPositionY + 2] == 1) {
+                                axisPositionX = random.nextInt(10) + 3;
+                                axisPositionY = random.nextInt(10) + 3;
                             } else {
                                 for (int i = 0; i < 2; i++) {
-                                    playingField[xAxisPosition][yAxisPosition + i] = 1;
+                                    playingField[axisPositionX][axisPositionY + i] = 1;
                                 }
                                 isFree = true;
                             }
@@ -234,41 +249,49 @@ public class PlayingField {
         }
     }
 
-    public void Place1DeckShips(int[][] playingField) {
+    /**
+     * Places four 1-deck ships on playing field in random position and direction.
+     *
+     * @param playingField playing field where ships are placing
+     */
+    public void place1DeckShips(int[][] playingField) {
         Random random = new Random();
-        int xAxisPosition = 0;
-        int yAxisPosition = 0;
+        int axisPositionX = 0;
+        int axisPositionY = 0;
         boolean isFree = false;
 
         for (int k = 0; k < 4; k++) {
-            xAxisPosition = random.nextInt(10) + 3;
-            yAxisPosition = random.nextInt(10) + 3;
+            axisPositionX = random.nextInt(10) + 3;
+            axisPositionY = random.nextInt(10) + 3;
 
-            while (isFree != true) {
-                if (playingField[xAxisPosition][yAxisPosition] == 1 ||
-                        playingField[xAxisPosition - 1][yAxisPosition] == 1 ||
-                        playingField[xAxisPosition][yAxisPosition - 1] == 1 ||
-                        playingField[xAxisPosition + 1][yAxisPosition] == 1 ||
-                        playingField[xAxisPosition][yAxisPosition + 1] == 1 ||
-                        playingField[xAxisPosition - 1][yAxisPosition - 1] == 1 ||
-                        playingField[xAxisPosition - 1][yAxisPosition + 1] == 1 ||
-                        playingField[xAxisPosition + 1][yAxisPosition - 1] == 1 ||
-                        playingField[xAxisPosition + 1][yAxisPosition + 1] == 1) {
-                    xAxisPosition = random.nextInt(10) + 3;
-                    yAxisPosition = random.nextInt(10) + 3;
+            while (!isFree) {
+                if (playingField[axisPositionX][axisPositionY] == 1 ||
+                        playingField[axisPositionX - 1][axisPositionY] == 1 ||
+                        playingField[axisPositionX][axisPositionY - 1] == 1 ||
+                        playingField[axisPositionX + 1][axisPositionY] == 1 ||
+                        playingField[axisPositionX][axisPositionY + 1] == 1 ||
+                        playingField[axisPositionX - 1][axisPositionY - 1] == 1 ||
+                        playingField[axisPositionX - 1][axisPositionY + 1] == 1 ||
+                        playingField[axisPositionX + 1][axisPositionY - 1] == 1 ||
+                        playingField[axisPositionX + 1][axisPositionY + 1] == 1) {
+                    axisPositionX = random.nextInt(10) + 3;
+                    axisPositionY = random.nextInt(10) + 3;
                 } else {
                     isFree = true;
                 }
             }
-            playingField[xAxisPosition][yAxisPosition] = 1;
+            playingField[axisPositionX][axisPositionY] = 1;
             isFree = false;
         }
     }
 
-    public void PlaceEnemyShips() {
-        Place4DeckShip(this.playingField);
-        Place3DeckShips(this.playingField);
-        Place2DeckShips(this.playingField);
-        Place1DeckShips(this.playingField);
+    /**
+     * Places all ships on playing field
+     */
+    public void placeEnemyShips() {
+        place4DeckShip(this.playingField);
+        place3DeckShips(this.playingField);
+        place2DeckShips(this.playingField);
+        place1DeckShips(this.playingField);
     }
 }

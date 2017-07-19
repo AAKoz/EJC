@@ -7,83 +7,86 @@ public class SeaFight {
     private int tryiesCount = 40;
     private int deckCount = 20;
 
-    public void ShowIntroAndStartGame() {
+    /**
+     * Shows introduction to the game and releases game process.
+     * Gets shoots, check them and shows log.
+     */
+    public void showIntroAndStartGame() {
         SeaFight seaFight = new SeaFight();
         PlayingField playingField = new PlayingField();
         String userInput;
         boolean isRightInput = false;
         char firstChar = 'x';
-        int xAxisNum = 0;
-        int yAxisNum = 0;
+        int axisNumX = 0;
+        int axisNumY = 0;
 
         System.out.println("Welcome to SeaFight game!\n" +
                 "Enemy have one 4-deck, two 3-deck, three 2-deck and four 1-deck ships\n" +
                 "You have 40 tries to kill them all - if you'll destroy all, you win, in other case - lose\n" +
                 "Example of command \"a1\", to exit press q\n" +
                 "Go on!");
-        playingField.PlaceEnemyShips();
-        seaFight.ShowField(this.enemyField);
+        playingField.placeEnemyShips();
+        seaFight.showField(this.enemyField);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             while (this.tryiesCount > 0 || this.deckCount > 0) {
                 while (!isRightInput) {
                     userInput = reader.readLine().toLowerCase();
-                    if (userInput.length() > 3 || (userInput.length() == 3 && userInput.substring(1).intern() != "10")) {
+                    if (userInput.length() > 3 || (userInput.length() == 3
+                            && userInput.substring(1).intern() != "10")) {
                         System.err.println("Wrong input");
                     } else {
                         if (userInput.length() == 1) {
                             if (userInput.charAt(0) == 'q') {
                                 System.exit(0);
-                            }
-                            else{
+                            } else {
                                 System.err.println("Wrong input");
                             }
                         } else {
                             firstChar = userInput.charAt(0);
-                            xAxisNum = Integer.parseInt(userInput.substring(1));
+                            axisNumX = Integer.parseInt(userInput.substring(1));
                             isRightInput = true;
                         }
                     }
                 }
-
                 switch (firstChar) {
                     case 'a':
-                        yAxisNum = 1;
+                        axisNumY = 1;
                         break;
                     case 'b':
-                        yAxisNum = 2;
+                        axisNumY = 2;
                         break;
                     case 'c':
-                        yAxisNum = 3;
+                        axisNumY = 3;
                         break;
                     case 'd':
-                        yAxisNum = 4;
+                        axisNumY = 4;
                         break;
                     case 'e':
-                        yAxisNum = 5;
+                        axisNumY = 5;
                         break;
                     case 'f':
-                        yAxisNum = 6;
+                        axisNumY = 6;
                         break;
                     case 'g':
-                        yAxisNum = 7;
+                        axisNumY = 7;
                         break;
                     case 'h':
-                        yAxisNum = 8;
+                        axisNumY = 8;
                         break;
                     case 'i':
-                        yAxisNum = 9;
+                        axisNumY = 9;
                         break;
                     case 'j':
-                        yAxisNum = 10;
+                        axisNumY = 10;
                         break;
                     default:
                         System.err.println("Wrong input");
                         break;
                 }
-                CheckField(playingField.playingField, xAxisNum + 2, yAxisNum + 2);
+                checkField(playingField.playingField, axisNumX + 2, axisNumY + 2);
                 System.out.println("You have " + (this.tryiesCount - 1) + " tries");
-                seaFight.ShowField(this.enemyField);
+                seaFight.showField(this.enemyField);
                 this.tryiesCount--;
                 isRightInput = false;
             }
@@ -92,7 +95,12 @@ public class SeaFight {
         }
     }
 
-    private void ShowField(int[][] enemyField) {
+    /**
+     * Shows current position of all ships on field.
+     *
+     * @param enemyField field shown to the player
+     */
+    private void showField(int[][] enemyField) {
         System.out.println("   A B C D E F G H I J");
         for (int i = 3; i < 13; i++) {
             if (i == 12) {
@@ -117,50 +125,57 @@ public class SeaFight {
         }
     }
 
-    private void CheckField(int[][] playingField, int xAxisNum, int yAxisNum) {
-        if (this.enemyField[xAxisNum][yAxisNum] == 1 || this.enemyField[xAxisNum][yAxisNum] == -1) {
+    /**
+     * Checks shoots, made by player and writes the result to console.
+     *
+     * @param axisNumX coordinate on X-axis
+     * @param axisNumY coordinate on Y-axis
+     * @param playingField field which consists placement of all ships
+     */
+    private void checkField(int[][] playingField, int axisNumX, int axisNumY) {
+        if (this.enemyField[axisNumX][axisNumY] == 1 || this.enemyField[axisNumX][axisNumY] == -1) {
             System.out.println("You cant't shoot there");
             this.tryiesCount++;
             System.out.println();
         } else {
-            if (playingField[xAxisNum][yAxisNum] == 1) {
-                if (playingField[xAxisNum - 1][yAxisNum] != 1 &&
-                        playingField[xAxisNum - 1][yAxisNum + 1] != 1 &&
-                        playingField[xAxisNum + 1][yAxisNum] != 1 &&
-                        playingField[xAxisNum + 1][yAxisNum - 1] != 1 &&
-                        playingField[xAxisNum][yAxisNum - 1] != 1 &&
-                        playingField[xAxisNum][yAxisNum + 1] != 1 &&
-                        playingField[xAxisNum + 1][yAxisNum + 1] != 1 &&
-                        playingField[xAxisNum - 1][yAxisNum - 1] != 1) {
-                    if (playingField[xAxisNum - 1][yAxisNum] == -1 ||
-                            playingField[xAxisNum + 1][yAxisNum] == -1 ||
-                            playingField[xAxisNum][yAxisNum - 1] == -1 ||
-                            playingField[xAxisNum][yAxisNum + 1] == -1) {
-                        if ((playingField[xAxisNum - 1][yAxisNum] == -1
-                                && playingField[xAxisNum - 2][yAxisNum] == -1
-                                && playingField[xAxisNum - 3][yAxisNum] == 1) ||
-                                (playingField[xAxisNum + 1][yAxisNum] == -1
-                                        && playingField[xAxisNum + 2][yAxisNum] == -1
-                                        && playingField[xAxisNum + 3][yAxisNum] == 1) ||
-                                (playingField[xAxisNum][yAxisNum - 1] == -1
-                                        && playingField[xAxisNum][yAxisNum - 2] == -1
-                                        && playingField[xAxisNum][yAxisNum - 3] == 1) ||
-                                (playingField[xAxisNum][yAxisNum + 1] == -1
-                                        && playingField[xAxisNum][yAxisNum + 2] == -1
-                                        && playingField[xAxisNum][yAxisNum + 3] == 1)) {
+            if (playingField[axisNumX][axisNumY] == 1) {
+                if (playingField[axisNumX - 1][axisNumY] != 1 &&
+                        playingField[axisNumX - 1][axisNumY + 1] != 1 &&
+                        playingField[axisNumX + 1][axisNumY] != 1 &&
+                        playingField[axisNumX + 1][axisNumY - 1] != 1 &&
+                        playingField[axisNumX][axisNumY - 1] != 1 &&
+                        playingField[axisNumX][axisNumY + 1] != 1 &&
+                        playingField[axisNumX + 1][axisNumY + 1] != 1 &&
+                        playingField[axisNumX - 1][axisNumY - 1] != 1) {
+                    if (playingField[axisNumX - 1][axisNumY] == -1 ||
+                            playingField[axisNumX + 1][axisNumY] == -1 ||
+                            playingField[axisNumX][axisNumY - 1] == -1 ||
+                            playingField[axisNumX][axisNumY + 1] == -1) {
+                        if ((playingField[axisNumX - 1][axisNumY] == -1
+                                && playingField[axisNumX - 2][axisNumY] == -1
+                                && playingField[axisNumX - 3][axisNumY] == 1) ||
+                                (playingField[axisNumX + 1][axisNumY] == -1
+                                        && playingField[axisNumX + 2][axisNumY] == -1
+                                        && playingField[axisNumX + 3][axisNumY] == 1) ||
+                                (playingField[axisNumX][axisNumY - 1] == -1
+                                        && playingField[axisNumX][axisNumY - 2] == -1
+                                        && playingField[axisNumX][axisNumY - 3] == 1) ||
+                                (playingField[axisNumX][axisNumY + 1] == -1
+                                        && playingField[axisNumX][axisNumY + 2] == -1
+                                        && playingField[axisNumX][axisNumY + 3] == 1)) {
                             System.out.println("Harmed");
                             this.deckCount--;
                             System.out.println();
-                            playingField[xAxisNum][yAxisNum] = -1;
-                            this.enemyField[xAxisNum][yAxisNum] = 1;
+                            playingField[axisNumX][axisNumY] = -1;
+                            this.enemyField[axisNumX][axisNumY] = 1;
                         } else {
-                            if (playingField[xAxisNum - 2][yAxisNum] == -1 ||
-                                    playingField[xAxisNum + 2][yAxisNum] == -1 ||
-                                    playingField[xAxisNum][yAxisNum - 2] == -1 ||
-                                    playingField[xAxisNum][yAxisNum + 2] == -1) {
+                            if (playingField[axisNumX - 2][axisNumY] == -1 ||
+                                    playingField[axisNumX + 2][axisNumY] == -1 ||
+                                    playingField[axisNumX][axisNumY - 2] == -1 ||
+                                    playingField[axisNumX][axisNumY + 2] == -1) {
                                 System.out.println("Dead");
                                 this.deckCount--;
-                                playingField[xAxisNum][yAxisNum] = -1;
+                                playingField[axisNumX][axisNumY] = -1;
                                 System.out.println();
                                 for (int i = 3; i < 13; i++) {
                                     for (int j = 3; j < 13; j++) {
@@ -186,23 +201,23 @@ public class SeaFight {
                                     }
                                 }
                             } else {
-                                if ((playingField[xAxisNum - 1][yAxisNum] == -1
-                                        && playingField[xAxisNum - 2][yAxisNum] == 1) ||
-                                        (playingField[xAxisNum + 1][yAxisNum] == -1
-                                                && playingField[xAxisNum + 2][yAxisNum] == 1) ||
-                                        (playingField[xAxisNum][yAxisNum - 1] == -1
-                                                && playingField[xAxisNum][yAxisNum - 2] == 1) ||
-                                        (playingField[xAxisNum][yAxisNum + 1] == -1
-                                                && playingField[xAxisNum][yAxisNum + 2] == 1)) {
+                                if ((playingField[axisNumX - 1][axisNumY] == -1
+                                        && playingField[axisNumX - 2][axisNumY] == 1) ||
+                                        (playingField[axisNumX + 1][axisNumY] == -1
+                                                && playingField[axisNumX + 2][axisNumY] == 1) ||
+                                        (playingField[axisNumX][axisNumY - 1] == -1
+                                                && playingField[axisNumX][axisNumY - 2] == 1) ||
+                                        (playingField[axisNumX][axisNumY + 1] == -1
+                                                && playingField[axisNumX][axisNumY + 2] == 1)) {
                                     System.out.println("Harmed");
                                     this.deckCount--;
                                     System.out.println();
-                                    playingField[xAxisNum][yAxisNum] = -1;
-                                    this.enemyField[xAxisNum][yAxisNum] = 1;
+                                    playingField[axisNumX][axisNumY] = -1;
+                                    this.enemyField[axisNumX][axisNumY] = 1;
                                 } else {
                                     System.out.println("Dead");
                                     this.deckCount--;
-                                    playingField[xAxisNum][yAxisNum] = -1;
+                                    playingField[axisNumX][axisNumY] = -1;
                                     System.out.println();
                                     for (int i = 3; i < 13; i++) {
                                         for (int j = 3; j < 13; j++) {
@@ -235,31 +250,29 @@ public class SeaFight {
                         System.out.println("Dead");
                         this.deckCount--;
                         System.out.println();
-
-                        this.enemyField[xAxisNum][yAxisNum] = 1;
-                        this.enemyField[xAxisNum - 1][yAxisNum + 1] = -1;
-                        this.enemyField[xAxisNum + 1][yAxisNum] = -1;
-                        this.enemyField[xAxisNum + 1][yAxisNum - 1] = -1;
-                        this.enemyField[xAxisNum][yAxisNum - 1] = -1;
-                        this.enemyField[xAxisNum][yAxisNum + 1] = -1;
-                        this.enemyField[xAxisNum + 1][yAxisNum + 1] = -1;
-                        this.enemyField[xAxisNum - 1][yAxisNum - 1] = -1;
-                        this.enemyField[xAxisNum - 1][yAxisNum] = -1;
+                        this.enemyField[axisNumX][axisNumY] = 1;
+                        this.enemyField[axisNumX - 1][axisNumY + 1] = -1;
+                        this.enemyField[axisNumX + 1][axisNumY] = -1;
+                        this.enemyField[axisNumX + 1][axisNumY - 1] = -1;
+                        this.enemyField[axisNumX][axisNumY - 1] = -1;
+                        this.enemyField[axisNumX][axisNumY + 1] = -1;
+                        this.enemyField[axisNumX + 1][axisNumY + 1] = -1;
+                        this.enemyField[axisNumX - 1][axisNumY - 1] = -1;
+                        this.enemyField[axisNumX - 1][axisNumY] = -1;
                     }
                 } else {
                     System.out.println("Harmed");
                     this.deckCount--;
                     System.out.println();
-                    playingField[xAxisNum][yAxisNum] = -1;
-                    this.enemyField[xAxisNum][yAxisNum] = 1;
+                    playingField[axisNumX][axisNumY] = -1;
+                    this.enemyField[axisNumX][axisNumY] = 1;
                 }
             } else {
-                if (playingField[xAxisNum][yAxisNum] == 0) {
+                if (playingField[axisNumX][axisNumY] == 0) {
                     System.out.println("Missed");
                     System.out.println();
-                    this.enemyField[xAxisNum][yAxisNum] = -1;
+                    this.enemyField[axisNumX][axisNumY] = -1;
                 }
-
             }
         }
     }
