@@ -1,3 +1,5 @@
+package sea_fight;
+
 import java.util.Random;
 
 public class PlayingField {

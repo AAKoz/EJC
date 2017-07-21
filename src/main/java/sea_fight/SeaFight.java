@@ -1,3 +1,5 @@
+package sea_fight;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -110,7 +112,7 @@ public class SeaFight {
             }
             for (int j = 3; j < 13; j++) {
                 if (enemyField[i][j] == 0) {
-                    System.out.print(". ");
+                    System.out.print(" ");
                 } else {
                     if (enemyField[i][j] == 1) {
                         System.out.print("x ");

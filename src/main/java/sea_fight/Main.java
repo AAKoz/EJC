@@ -1,3 +1,5 @@
+package sea_fight;
+
 public class Main {
     public static void main(String[] args) {
         SeaFight seaFight = new SeaFight();
