@@ -1,3 +1,5 @@
+package task_04;
+
 public class SausageShop {
 
     public static int cash = 1000;

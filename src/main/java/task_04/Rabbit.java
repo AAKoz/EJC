@@ -1,3 +1,5 @@
+package task_04;
+
 import java.io.IOException;
 
 public class Rabbit {
@@ -25,7 +27,7 @@ public class Rabbit {
         @Override
         public void run() {
             while (!isScary) {
-                System.err.println("Rabbit is eating your carrots!");
+                System.err.println("task_04.Rabbit is eating your carrots!");
             }
         }
     }
