@@ -64,7 +64,7 @@ public class BubbleSortWithBinarySearch {
     /**
      * Binary search function. which checks existence of number in sorted massif
      *
-     * @param massif sorted massif of random numbers
+     * @param massif        sorted massif of random numbers
      * @param findingNumber number which existence checks in this function
      * @return message about the result of seeking number
      */
