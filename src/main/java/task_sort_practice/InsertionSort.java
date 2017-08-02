@@ -22,7 +22,7 @@ public class InsertionSort {
      * @return sorted list of numbers
      */
     public List<Integer> insertionSort(List<Integer> list) {
-        int index = 0;
+        int index;
         for (int i = 1; i < list.size(); i++) {
             int currValue = list.get(i);
             index = i;
