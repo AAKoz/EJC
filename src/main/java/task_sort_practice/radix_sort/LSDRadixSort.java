@@ -5,34 +5,34 @@ import java.util.Random;
 public class LSDRadixSort {
     public static void main(String[] args) {
         LSDRadixSort radixSort = new LSDRadixSort();
-        int[] massifToSort = new int[10];
-        radixSort.fillMassif(massifToSort);
-        radixSort.printMassif(massifToSort);
-        int countDigits = radixSort.findCountDigits(massifToSort);
-        radixSort.doRadixSort(massifToSort, countDigits);
-        radixSort.printMassif(massifToSort);
+        int[] arrayToSort = new int[10];
+        radixSort.fillArray(arrayToSort);
+        radixSort.printArray(arrayToSort);
+        int countDigits = radixSort.findCountDigits(arrayToSort);
+        radixSort.doRadixSort(arrayToSort, countDigits);
+        radixSort.printArray(arrayToSort);
     }
 
     /**
-     * Fills unsorted massif with 10 random elements
+     * Fills unsorted array with 10 random elements
      *
-     * @param massif unsorted massif of numbers
+     * @param array unsorted array of numbers
      */
-    private void fillMassif(int[] massif) {
+    private void fillArray(int[] array) {
         Random random = new Random();
-        for (int i = 0; i < massif.length; i++) {
-            massif[i] = random.nextInt(1000);
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(1000);
         }
     }
 
     /**
-     * Prints content of the massif
+     * Prints content of the array
      *
-     * @param massif massif with 10 numbers
+     * @param array array with 10 numbers
      */
-    private void printMassif(int[] massif) {
-        for (int i = 0; i < massif.length; i++) {
-            System.out.print(massif[i] + " ");
+    private void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
         System.out.println();
     }
@@ -40,15 +40,15 @@ public class LSDRadixSort {
     /**
      * Finds how many digits has the biggest number
      *
-     * @param massif massif with 10 numbers
+     * @param array array with 10 numbers
      * @return count of digits in the biggest number
      */
-    private int findCountDigits(int[] massif) {
-        int max = massif[0];
+    private int findCountDigits(int[] array) {
+        int max = array[0];
         int countOfDigits = 1;
-        for (int i = 1; i < massif.length; i++) {
-            if (max < massif[i]) {
-                max = massif[i];
+        for (int i = 1; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
             }
         }
         while (max > 9) {
@@ -59,35 +59,35 @@ public class LSDRadixSort {
     }
 
     /**
-     * LSD radix sort function of massif which consists 10 random numbers
+     * LSD radix sort function of array which consists 10 random numbers
      *
-     * @param massif      unsorted massif of numbers
+     * @param array       unsorted array of numbers
      * @param countDigits count of digits in the biggest number
      */
-    private void doRadixSort(int[] massif, int countDigits) {
-        int[] assistantMas = new int[10];
-        System.arraycopy(massif, 0, assistantMas, 0, 10);
+    private void doRadixSort(int[] array, int countDigits) {
+        int[] assistantArray = new int[10];
+        System.arraycopy(array, 0, assistantArray, 0, 10);
         for (int i = 0; i < countDigits; i++) {
-            for (int j = 0; j < massif.length; j++) {
+            for (int j = 0; j < array.length; j++) {
                 for (int k = 0; k < i; k++) {
-                    assistantMas[j] = assistantMas[j] / 10;
+                    assistantArray[j] = assistantArray[j] / 10;
                 }
-                assistantMas[j] = assistantMas[j] % 10;
+                assistantArray[j] = assistantArray[j] % 10;
             }
-            for (int j = 0; j < massif.length; j++) {
-                for (int k = 0; k < assistantMas.length; k++) {
-                    if (assistantMas[j] < assistantMas[k]) {
-                        assistantMas[j] += assistantMas[k];
-                        assistantMas[k] = assistantMas[j] - assistantMas[k];
-                        assistantMas[j] -= assistantMas[k];
+            for (int j = 0; j < array.length; j++) {
+                for (int k = 0; k < assistantArray.length; k++) {
+                    if (assistantArray[j] < assistantArray[k]) {
+                        assistantArray[j] += assistantArray[k];
+                        assistantArray[k] = assistantArray[j] - assistantArray[k];
+                        assistantArray[j] -= assistantArray[k];
 
-                        massif[j] += massif[k];
-                        massif[k] = massif[j] - massif[k];
-                        massif[j] -= massif[k];
+                        array[j] += array[k];
+                        array[k] = array[j] - array[k];
+                        array[j] -= array[k];
                     }
                 }
             }
-            System.arraycopy(massif, 0, assistantMas, 0, 10);
+            System.arraycopy(array, 0, assistantArray, 0, 10);
         }
     }
 }

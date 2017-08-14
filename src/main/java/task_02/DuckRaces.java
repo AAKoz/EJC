@@ -8,19 +8,18 @@ import java.util.concurrent.TimeUnit;
 public class DuckRaces {
     private final int FLYTIME = 10;
 
-    public static void main(String[] args) {
-        DuckRaces currentRace = new DuckRaces();
+    public void startRace() {
         Player player = new Player();
-        Duck Marty = new Duck();
-        Duck Melvin = new Duck();
-        Duck Mervin = new Duck();
-        Duck Gaben = new Duck();
-        Duck Joe = new Duck();
+        Duck marty = new Duck();
+        Duck melvin = new Duck();
+        Duck mervin = new Duck();
+        Duck gaben = new Duck();
+        Duck joe = new Duck();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int[] ducksPosition = new int[5];
 
         while (player.cash != 0) {
-            currentRace.DoRegularOutput(player);
+            doRegularOutput(player);
             try {
                 while (player.duckNumber > 5 || player.duckNumber < 1) {
                     player.duckNumber = Integer.parseInt(reader.readLine());
@@ -30,31 +29,33 @@ public class DuckRaces {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             player.cash -= 100;
             System.out.println("Race begins!");
 
-            for (int i = 0; i < currentRace.FLYTIME; ++i) {
-                currentRace.DoSpeedDistributionForAllDucks(Marty, Melvin, Mervin, Gaben, Joe);
-                currentRace.LetOutDucks(Marty, Melvin, Mervin, Gaben, Joe, ducksPosition);
+            for (int i = 0; i < FLYTIME; ++i) {
+                doSpeedDistributionForAllDucks(marty, melvin, mervin, gaben, joe);
+                letOutDucks(marty, melvin, mervin, gaben, joe, ducksPosition);
                 System.out.println("");
             }
-
-            if (currentRace.FindWinner(ducksPosition) == (player.duckNumber - 1)) {
-                System.out.println("Your duck winns");
+            if (findWinner(ducksPosition) == (player.duckNumber - 1)) {
+                System.out.println("Your duck win\'s");
                 System.out.println("");
                 player.cash += 200;
             } else {
                 System.out.println("Your duck loses");
                 System.out.println("");
             }
-
-            currentRace.NullPositionAndDucksNumber(player, ducksPosition);
+            nullPositionAndDucksNumber(player, ducksPosition);
         }
         System.out.println("You lose!");
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void DoRegularOutput(Player player) {
+    private void doRegularOutput(Player player) {
         System.out.println("Your cash: " + player.cash);
         System.out.println("Choose your duck's number:   1.Marty");
         System.out.println("                             2.Melvin");
@@ -63,15 +64,15 @@ public class DuckRaces {
         System.out.println("                             5.Joe");
     }
 
-    private void DoSpeedDistributionForAllDucks(Duck Marty, Duck Melvin, Duck Mervin, Duck Gaben, Duck Joe) {
-        Marty.DoSpeedDistribution();
-        Melvin.DoSpeedDistribution();
-        Mervin.DoSpeedDistribution();
-        Gaben.DoSpeedDistribution();
-        Joe.DoSpeedDistribution();
+    private void doSpeedDistributionForAllDucks(Duck Marty, Duck Melvin, Duck Mervin, Duck Gaben, Duck Joe) {
+        Marty.doSpeedDistribution();
+        Melvin.doSpeedDistribution();
+        Mervin.doSpeedDistribution();
+        Gaben.doSpeedDistribution();
+        Joe.doSpeedDistribution();
     }
 
-    private void LetOutDucks(Duck Marty, Duck Melvin, Duck Mervin, Duck Gaben, Duck Joe, int[] ducksPosition) {
+    private void letOutDucks(Duck Marty, Duck Melvin, Duck Mervin, Duck Gaben, Duck Joe, int[] ducksPosition) {
         ducksPosition[0] += Marty.speed;
         System.out.println("Marty' s position = " + ducksPosition[0]);
         ducksPosition[1] += Melvin.speed;
@@ -90,7 +91,7 @@ public class DuckRaces {
         }
     }
 
-    private int FindWinner(int[] ducksPosition) {
+    private int findWinner(int[] ducksPosition) {
         int maxIndex = 0;
         for (int i = 0; i < ducksPosition.length; i++) {
             if (ducksPosition[maxIndex] < ducksPosition[i]) {
@@ -100,7 +101,7 @@ public class DuckRaces {
         return maxIndex;
     }
 
-    private void NullPositionAndDucksNumber(Player player, int[] ducksPosition) {
+    private void nullPositionAndDucksNumber(Player player, int[] ducksPosition) {
         player.duckNumber = 0;
         for (int i = 0; i < ducksPosition.length; i++) {
             ducksPosition[i] = 0;

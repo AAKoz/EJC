@@ -19,7 +19,7 @@ public class Main {
     }
 
     /**
-     * Дан текст. Найти наибольшее количество идущих подряд одинаковых символов.
+     * Finds the maximum number of same chars in row
      *
      * @param string input text
      * @return maximum number of same chars in row
@@ -46,7 +46,7 @@ public class Main {
     }
 
     /**
-     * Дано слово. Определить, сколько различных букв в нем.
+     * Finds number of different letters in word
      *
      * @param string input word
      * @return number of different letters
@@ -54,7 +54,9 @@ public class Main {
     private int numberOfDifferentLetters(String string) {
         HashSet set = new HashSet<>();
         for (int i = 0; i < string.length(); i++) {
-            set.add(string.charAt(i));
+            if (Character.isAlphabetic(string.charAt(i))) {
+                set.add(string.charAt(i));
+            }
         }
         return set.size();
     }

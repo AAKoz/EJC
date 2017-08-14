@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
-       // main.GetString();
-        main.GetPalindriomeString();
+       // main.getString();
+        main.getPalindromeString();
     }
 
-    private void GetString() {
+    private void getString() {
         String s1 = "";
         String s2 = "";
 
@@ -28,7 +28,7 @@ public class Main {
         System.out.println(s2);
     }
 
-    private void GetPalindriomeString() {
+    private void getPalindromeString() {
         String s1 = "";
         String s2 = "";
         int i = 0;

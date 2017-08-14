@@ -7,22 +7,22 @@ public class Duck {
     FlyBehavior duckFlyBehavior;
     int speed;
 
-    public void DoSpeedDistribution() {
+    public void doSpeedDistribution() {
         Random random = new Random();
         if (random.nextBoolean() == true) {
-            this.SetFlyBehavior(new FlyAbility());
-            this.PerformFly();
+            this.setFlyBehavior(new FlyAbility());
+            this.performFly();
         } else {
-            this.SetFlyBehavior(new FlyInability());
-            this.PerformFly();
+            this.setFlyBehavior(new FlyInability());
+            this.performFly();
         }
     }
 
-    private void SetFlyBehavior(FlyBehavior flyBehaviorDynamical) {
+    private void setFlyBehavior(FlyBehavior flyBehaviorDynamical) {
         duckFlyBehavior = flyBehaviorDynamical;
     }
 
-    private void PerformFly() {
+    private void performFly() {
         duckFlyBehavior.flyBehavior(this);
     }
 }

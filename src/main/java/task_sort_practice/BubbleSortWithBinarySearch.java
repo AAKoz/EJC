@@ -5,56 +5,56 @@ import java.util.Random;
 public class BubbleSortWithBinarySearch {
     public static void main(String[] args) {
         BubbleSortWithBinarySearch bubbleSortWithBinarySearch = new BubbleSortWithBinarySearch();
-        int[] massifToSort = new int[10];
-        bubbleSortWithBinarySearch.fillMassif(massifToSort);
-        bubbleSortWithBinarySearch.printMassif(massifToSort);
-        bubbleSortWithBinarySearch.doBubbleSort(massifToSort);
-        bubbleSortWithBinarySearch.printMassif(massifToSort);
-        System.out.println(bubbleSortWithBinarySearch.doBinarySearch(massifToSort, massifToSort[2]));
+        int[] arrayToSort = new int[10];
+        bubbleSortWithBinarySearch.fillArray(arrayToSort);
+        bubbleSortWithBinarySearch.printArray(arrayToSort);
+        bubbleSortWithBinarySearch.doBubbleSort(arrayToSort);
+        bubbleSortWithBinarySearch.printArray(arrayToSort);
+        System.out.println(bubbleSortWithBinarySearch.doBinarySearch(arrayToSort, arrayToSort[7]));
     }
 
     /**
-     * Fills unsorted massif with 10 random elements
+     * Fills unsorted array with 10 random elements
      *
-     * @param massif unsorted massif of numbers
+     * @param array unsorted array of numbers
      */
-    private void fillMassif(int[] massif) {
+    private void fillArray(int[] array) {
         Random random = new Random();
-        for (int i = 0; i < massif.length - 1; i++) {
-            massif[i] = random.nextInt(100);
+        for (int i = 0; i < array.length - 1; i++) {
+            array[i] = random.nextInt(100);
         }
     }
 
     /**
-     * Prints content of the massif
+     * Prints content of the array
      *
-     * @param massif massif with 10 numbers
+     * @param array array with 10 numbers
      */
-    private void printMassif(int[] massif) {
-        for (int i = 0; i < massif.length - 1; i++) {
-            System.out.print(massif[i] + " ");
+    private void printArray(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            System.out.print(array[i] + " ");
         }
         System.out.println();
     }
 
     /**
-     * Bubble sort function of massif which consists 10 random numbers
+     * Bubble sort function of array which consists 10 random numbers
      *
-     * @param massif unsorted massif of numbers
+     * @param array unsorted array of numbers
      */
-    private void doBubbleSort(int[] massif) {
+    private void doBubbleSort(int[] array) {
         int swapCounter = 0;
-        for (int i = 0; i < massif.length - 1; i++) {
-            for (int j = 0; j < massif.length - 2; j++) {
-                if (massif[j] > massif[j + 1]) {
-                    massif[j] = massif[j] + massif[j + 1];
-                    massif[j + 1] = massif[j] - massif[j + 1];
-                    massif[j] = massif[j] - massif[j + 1];
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - 2; j++) {
+                if (array[j] > array[j + 1]) {
+                    array[j] = array[j] + array[j + 1];
+                    array[j + 1] = array[j] - array[j + 1];
+                    array[j] = array[j] - array[j + 1];
                     swapCounter += 1;
                 }
             }
             if (swapCounter == 0) {
-                i = massif.length;
+                i = array.length;
             } else {
                 swapCounter = 0;
             }
@@ -62,22 +62,22 @@ public class BubbleSortWithBinarySearch {
     }
 
     /**
-     * Binary search function. which checks existence of number in sorted massif
+     * Binary search function. which checks existence of number in sorted array
      *
-     * @param massif        sorted massif of random numbers
+     * @param array         sorted array of random numbers
      * @param findingNumber number which existence checks in this function
      * @return message about the result of seeking number
      */
-    private String doBinarySearch(int[] massif, int findingNumber) {
+    private String doBinarySearch(int[] array, int findingNumber) {
         int lowerElement = 0;
-        int higherElement = massif.length;
+        int higherElement = array.length;
         int middleElement;
         while (lowerElement <= higherElement) {
             middleElement = lowerElement + (higherElement - lowerElement) / 2;
-            if (massif[middleElement] == findingNumber) {
+            if (array[middleElement] == findingNumber) {
                 return "Искомый элемент находится под индексом: " + middleElement;
             } else {
-                if (massif[middleElement] > findingNumber) {
+                if (array[middleElement] > findingNumber) {
                     higherElement = middleElement - 1;
                 } else {
                     lowerElement = middleElement + 1;

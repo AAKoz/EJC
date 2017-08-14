@@ -5,89 +5,89 @@ import java.util.Random;
 public class MergeSort {
     public static void main(String[] args) {
         MergeSort mergeSort = new MergeSort();
-        int[] massifToSort = new int[10];
-        mergeSort.fillMassif(massifToSort);
-        mergeSort.printMassif(massifToSort);
-        mergeSort.doMergeSort(massifToSort, 0, massifToSort.length - 1);
-        mergeSort.printMassif(massifToSort);
+        int[] arrayToSort = new int[10];
+        mergeSort.fillArray(arrayToSort);
+        mergeSort.printArray(arrayToSort);
+        mergeSort.doMergeSort(arrayToSort, 0, arrayToSort.length - 1);
+        mergeSort.printArray(arrayToSort);
     }
 
     /**
-     * Fills unsorted massif with 10 random elements
+     * Fills unsorted array with 10 random elements
      *
-     * @param massif unsorted massif of numbers
+     * @param array unsorted array of numbers
      */
-    private void fillMassif(int[] massif) {
+    private void fillArray(int[] array) {
         Random random = new Random();
-        for (int i = 0; i < massif.length; i++) {
-            massif[i] = random.nextInt(100);
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(100);
         }
     }
 
     /**
-     * Prints content of the massif
+     * Prints content of the array
      *
-     * @param massif massif with 10 numbers
+     * @param array array with 10 numbers
      */
-    private void printMassif(int[] massif) {
-        for (int i = 0; i < massif.length; i++) {
-            System.out.print(massif[i] + " ");
+    private void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
         System.out.println();
     }
 
     /**
-     * Splits massif on sections till sections' size will be equal 1
+     * Splits array on sections till sections' size will be equal 1
      *
-     * @param massif      unsorted massif of numbers
+     * @param array       unsorted array of numbers
      * @param lowElement  the lowest edge of section
      * @param highElement the highest edge of section
      */
-    private void doMergeSort(int[] massif, int lowElement, int highElement) {
+    private void doMergeSort(int[] array, int lowElement, int highElement) {
         int middleElement = (highElement + lowElement) / 2;
         if (lowElement < highElement) {
-            doMergeSort(massif, lowElement, middleElement);
-            doMergeSort(massif, middleElement + 1, highElement);
+            doMergeSort(array, lowElement, middleElement);
+            doMergeSort(array, middleElement + 1, highElement);
         }
         if (lowElement != highElement) {
-            doMerge(massif, lowElement, middleElement, highElement);
+            doMerge(array, lowElement, middleElement, highElement);
         }
     }
 
     /**
      * Merges sections to bigger and sorted ones
      *
-     * @param massif        unsorted massif of numbers
+     * @param array         unsorted array of numbers
      * @param lowElement    the lowest edge of section
      * @param middleElement middle index of section
      * @param highElement   the highest edge of section
      */
-    private void doMerge(int[] massif, int lowElement, int middleElement, int highElement) {
+    private void doMerge(int[] array, int lowElement, int middleElement, int highElement) {
         int counterElement = 1;
-        int counterSupportMassif = 0;
-        int[] supportMassif = new int[highElement - lowElement + 1];
+        int counterSupportArray = 0;
+        int[] supportArray = new int[highElement - lowElement + 1];
         int unchangedLowElement = lowElement;
         while (lowElement <= middleElement && middleElement + counterElement <= highElement) {
-            if (massif[lowElement] < massif[middleElement + counterElement]) {
-                supportMassif[counterSupportMassif] = massif[lowElement];
+            if (array[lowElement] < array[middleElement + counterElement]) {
+                supportArray[counterSupportArray] = array[lowElement];
                 lowElement++;
-                counterSupportMassif++;
+                counterSupportArray++;
             } else {
-                supportMassif[counterSupportMassif] = massif[middleElement + counterElement];
+                supportArray[counterSupportArray] = array[middleElement + counterElement];
                 counterElement++;
-                counterSupportMassif++;
+                counterSupportArray++;
             }
         }
         while (lowElement <= middleElement) {
-            supportMassif[counterSupportMassif] = massif[lowElement];
+            supportArray[counterSupportArray] = array[lowElement];
             lowElement++;
-            counterSupportMassif++;
+            counterSupportArray++;
         }
         while (middleElement + counterElement <= highElement) {
-            supportMassif[counterSupportMassif] = massif[middleElement + counterElement];
+            supportArray[counterSupportArray] = array[middleElement + counterElement];
             counterElement++;
-            counterSupportMassif++;
+            counterSupportArray++;
         }
-        System.arraycopy(supportMassif, 0, massif, unchangedLowElement, supportMassif.length);
+        System.arraycopy(supportArray, 0, array, unchangedLowElement, supportArray.length);
     }
 }
