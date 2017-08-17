@@ -23,6 +23,7 @@ public class Handler {
         Collections.sort(rawList);
         String assistantStringForFirstElement;
         String assistantStringForSecondElement;
+        Long time;
         for (int i = 0; i < rawList.toArray().length - 1; i++) {
             assistantStringForFirstElement = rawList.get(i);
             assistantStringForSecondElement = rawList.get(i + 1);
@@ -38,15 +39,56 @@ public class Handler {
                             assistantStringForSecondElement.substring(
                                     0,
                                     assistantStringForSecondElement.indexOf(';') + 1))) {
+                time = Long.parseLong(assistantStringForFirstElement.substring(
+                        assistantStringForFirstElement.lastIndexOf(';') + 1)) +
+                        Long.parseLong(assistantStringForSecondElement.substring(
+                                assistantStringForSecondElement.lastIndexOf(';') + 1));
                 assistantStringForFirstElement = assistantStringForFirstElement.substring(
                         0,
                         assistantStringForFirstElement.lastIndexOf(';') + 1) +
-                        (Long.parseLong(assistantStringForFirstElement.substring(
-                                assistantStringForFirstElement.lastIndexOf(';') + 1)) +
-                                Long.parseLong(assistantStringForSecondElement.substring(
-                                        assistantStringForSecondElement.lastIndexOf(';') + 1)));
+                        time;
                 rawList.set(i, assistantStringForFirstElement);
                 rawList.remove(i + 1);
+            }
+        }
+
+        for (int i = 0; i < rawList.toArray().length; i++) {
+            assistantStringForFirstElement = rawList.get(i);
+            time = Long.parseLong(assistantStringForFirstElement.substring(
+                    assistantStringForFirstElement.lastIndexOf(';') + 1));
+            assistantStringForFirstElement = assistantStringForFirstElement.substring(
+                    0,
+                    assistantStringForFirstElement.lastIndexOf(';') + 1) +
+                    setTimeInDaysHoursMinutesSeconds(time);
+            rawList.set(i, assistantStringForFirstElement);
+        }
+    }
+
+    /**
+     * Sets time in days, hours, minutes, seconds, milliseconds
+     *
+     * @param time time in milliseconds
+     * @return time in days, hours, minutes, seconds, milliseconds
+     */
+    private String setTimeInDaysHoursMinutesSeconds(Long time) {
+        if (time < 1000) {
+            return time + " ms";
+        } else {
+            if (time < 60000) {
+                return (time / 1000) + " sec " + (time % 1000) + " ms";
+            } else {
+                if (time < 3600000) {
+                    return time / 60000 + " min " + (time % 60000) / 1000 + " sec " + (time % 1000) + " ms";
+                } else {
+                    if (time < 86400000) {
+                        return time / 3600000 + " hour " + (time % 3600000) / 60000 + " min " +
+                                (time % 60000) / 1000 + " sec " + (time % 1000) + " ms";
+                    } else {
+                        return time / 86400000 + " day " + (time % 86400000) / 3600000 + " hour " +
+                                (time % 3600000) / 60000 + " min " + (time % 60000) / 1000 + " sec " +
+                                (time % 1000) + " ms";
+                    }
+                }
             }
         }
     }

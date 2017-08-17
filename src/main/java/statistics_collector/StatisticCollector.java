@@ -54,7 +54,7 @@ public class StatisticCollector {
      * Adds information from one list to united one
      *
      * @param listToUnite list, which need to be added to united one
-     * @param listUnited list with information from all files
+     * @param listUnited  list with information from all files
      */
     public synchronized void uniteAllArraysInOne(List<String> listToUnite, List<String> listUnited) {
         listUnited.addAll(listToUnite);
@@ -84,7 +84,7 @@ public class StatisticCollector {
         /**
          * Reads files and adds information in lists
          *
-         * @param fileName name of *.csv file
+         * @param fileName   name of *.csv file
          * @param unitedList list with all information from files
          */
         private void readFile(String fileName, List unitedList) {
